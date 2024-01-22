@@ -1,0 +1,82 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+import "v1/property.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/empty.proto";
+
+service PropertyService {
+    rpc CreateProperty(CreatePropertyRequest) returns (RentalProperty) {
+        option (google.api.http) = {
+            post: "/v1/properties"
+            body: "property"
+        };
+    }
+
+    rpc GetProperty(GetPropertyRequest) returns (RentalProperty) {
+        option (google.api.http) = {
+            get: "/v1/properties/{property_id}"
+        };
+    }
+
+    rpc ListProperties(ListPropertiesRequest) returns (ListPropertiesResponse) {
+        option (google.api.http) = {
+            get: "/v1/properties"
+        };
+    }
+
+    rpc UpdateProperty(UpdatePropertyRequest) returns (RentalProperty) {
+        option (google.api.http) = {
+            put: "/v1/properties/{property.property_id}"
+            body: "property"
+            additional_bindings {
+                patch: "/v1/properties/{property.property_id}"
+                body: "property"
+            }
+        };
+    }
+
+    rpc DeleteProperty(DeletePropertyRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/properties/{property_id}"
+        };
+    }
+}
+
+message CreatePropertyRequest {
+    RentalProperty property = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpdatePropertyRequest {
+    RentalProperty property = 1 [(google.api.field_behavior) = REQUIRED];
+    google.protobuf.FieldMask update_mask = 2;
+}
+
+message GetPropertyRequest {
+    string property_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListPropertiesRequest {
+    // The maximum number of items to return.
+    int32 page_size = 2;
+
+    // The next_page_token value returned from a previous List request, if any.
+    string page_token = 3;
+}
+
+message ListPropertiesResponse {
+    repeated RentalProperty properties = 1;
+  
+    // Token to retrieve the next page of results, or empty if there are no
+    // more results in the list.
+    string next_page_token = 2;
+  }
+
+message DeletePropertyRequest {
+    string property_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+  

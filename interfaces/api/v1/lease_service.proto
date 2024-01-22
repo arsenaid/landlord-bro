@@ -1,0 +1,23 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+import "v1/lease.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/empty.proto";
+
+service LeaseService {
+    rpc CreateLease(CreateLeaseRequest) returns (Lease) {
+      option (google.api.http) = {
+        post: "/v1/leases"
+        body: "lease"
+      };
+    }
+  }
+  
+  message CreateLeaseRequest {
+    Lease lease = 1;
+  }

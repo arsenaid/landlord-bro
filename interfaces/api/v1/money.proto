@@ -1,0 +1,13 @@
+syntax = "proto3";
+package api.v1;
+
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+import "validate/validate.proto";
+
+message Money {
+  // monetary value in the smallest unit (e.g., cents). For example, $10.99 would be represented as 1099 units.
+  int64 units = 1 [(validate.rules).int64.gt = 0];
+  // the currency code (e.g., "USD", "EUR").
+  string currency_code = 2 [(validate.rules).string.pattern = "[A-Z]{3}"];
+}

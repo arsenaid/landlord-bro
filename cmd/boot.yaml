@@ -1,0 +1,43 @@
+---
+config:
+  - name: db-config
+    path: "config/db-default.yaml"
+    domain: "*"
+  - name: db-config
+    path: "config/db-dev.yaml"
+    domain: "dev"
+logger:
+  - name: logger # Required
+    domain: "*" # Optional, default: "*"
+    default: true # Optional, default: false, use as default logger entry
+    zap: # Optional
+      level: info # Optional, default: info
+      development: true # Optional, default: true
+grpc:
+  - name: landlord-pro-grpc # Required
+    enabled: true # Required
+    port: 5225 # Required
+    gwPort: 8081
+    enableReflection: true # Optional, default: false
+    enableRkGwOption: true # Optional, default: false
+    commonService:
+      enabled: true # Optional, default: false
+    sw:
+      enabled: true # Optional, default: false
+      jsonPaths: ["../interfaces/api/gen/v1"]
+    docs:
+      enabled: true # Optional, default: false
+    prom:
+      enabled: true # Optional, default: false
+    middleware:
+      logging:
+        enabled: true # Optional, default: false
+      prom:
+        enabled: true # Optional, default: false
+      meta:
+        enabled: true # Optional, default: false
+      cors:
+        enabled: true
+      timeout:
+        enabled: true
+        timeoutMs: 5000

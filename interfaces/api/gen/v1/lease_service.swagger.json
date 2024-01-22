@@ -1,0 +1,134 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v1/lease_service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "LeaseService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/leases": {
+      "post": {
+        "operationId": "LeaseService_CreateLease",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Lease"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "lease",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Lease"
+            }
+          }
+        ],
+        "tags": [
+          "LeaseService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Lease": {
+      "type": "object",
+      "properties": {
+        "leaseId": {
+          "type": "string"
+        },
+        "propertyId": {
+          "type": "string"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rentAmount": {
+          "$ref": "#/definitions/v1Money"
+        },
+        "paymentPeriod": {
+          "$ref": "#/definitions/v1PaymentPeriod"
+        }
+      }
+    },
+    "v1Money": {
+      "type": "object",
+      "properties": {
+        "units": {
+          "type": "string",
+          "format": "int64",
+          "description": "monetary value in the smallest unit (e.g., cents). For example, $10.99 would be represented as 1099 units."
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "the currency code (e.g., \"USD\", \"EUR\")."
+        }
+      }
+    },
+    "v1PaymentPeriod": {
+      "type": "string",
+      "enum": [
+        "PAYMENT_PERIOD_UNSPECIFIED",
+        "WEEKLY",
+        "MONTHLY"
+      ],
+      "default": "PAYMENT_PERIOD_UNSPECIFIED",
+      "description": " - PAYMENT_PERIOD_UNSPECIFIED: Default value. This value is unused."
+    }
+  }
+}

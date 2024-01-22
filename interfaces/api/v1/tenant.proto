@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package api.v1;
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+import "v1/phone.proto";
+import "validate/validate.proto"; 
+
+message Tenant {
+  string tenant_id = 1;
+  string given_name = 2;
+  string family_name = 3;
+  string email = 4 [(validate.rules).string.email = true];
+  PhoneNumber phone_number = 5 [(validate.rules).message.required = true];
+	string emergency_contact_name = 6;
+  PhoneNumber emergency_contact_phone = 7;
+}

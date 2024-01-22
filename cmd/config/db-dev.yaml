@@ -1,0 +1,11 @@
+---
+dialect: postgres
+host: localhost
+user: gorm
+password: gorm
+dbname: rental
+port: 5432
+maxIdleTime: 10
+maxOpenConns: 100
+connMaxLifetime: 1h
+sslMode: false

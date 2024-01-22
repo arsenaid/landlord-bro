@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package api.v1;
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+import "google/protobuf/timestamp.proto";
+import "v1/money.proto";
+import "validate/validate.proto"; 
+
+message Lease {
+  string lease_id = 1;
+  string property_id = 2;
+  string tenant_id = 3;
+  google.protobuf.Timestamp start_time = 4;
+  google.protobuf.Timestamp end_time = 5;
+  Money rent_amount = 6;
+  PaymentPeriod payment_period = 7;
+}
+
+enum PaymentPeriod {
+  // Default value. This value is unused.
+  PAYMENT_PERIOD_UNSPECIFIED = 0;
+  WEEKLY = 1;
+  MONTHLY = 2;
+}

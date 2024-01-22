@@ -1,0 +1,16 @@
+syntax = "proto3";
+package api.v1;
+option go_package = "github.com/landlord-bro/api/gen/v1";
+
+message Address {
+  // Represents the street address (e.g., house number and street name).
+  string street = 1;
+  // Represents the city or locality of the address.
+  string city = 2;
+  // Represents the state or region of the address.
+  string state = 3;
+  // Represents the postal code or ZIP code of the address.
+  string postal_code = 4;
+  // Represents the country of the address.
+  string country = 5;
+}

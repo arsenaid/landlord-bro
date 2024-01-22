@@ -1,0 +1,3 @@
+---
+dialect: sqlite
+dbname: "file::memory:?cache=shared"
